@@ -1,0 +1,3342 @@
+### search_filters = {FOCUS_FILTER_POLITICAL}
+### search_filters = {FOCUS_FILTER_RESEARCH}
+### search_filters = {FOCUS_FILTER_INDUSTRY}
+### search_filters = {FOCUS_FILTER_STABILITY}
+### search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+### search_filters = {FOCUS_FILTER_MANPOWER}
+### search_filters = {FOCUS_FILTER_ANNEXATION}
+
+focus_tree = {
+	id = VLR_SPR_spanish_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SPR
+			has_dlc = "La Resistance"
+			has_country_flag = civil_war_aborted
+		}
+	}
+
+	continuous_focus_position = { x = 50 y = 1500 }
+	
+	##############################################################################################################################
+	## COMMON FOCUSES --- BEGINNING
+	##############################################################################################################################
+	focus = {
+		id = VLR_SPR_political_amnesty_for_lesser_range_officers
+		icon = GFX_goal_generic_improve_relations
+		x = 11
+		y = 0
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 50
+		}
+		mutually_exclusive = { focus = VLR_SPR_continue_the_trials_of_Madrid }
+		completion_reward = {
+			add_stability = 0.025
+			every_state = {
+				limit = {
+					is_core_of = SPA
+				}
+				add_core_of = SPR
+				remove_core_of = SPA
+			}
+			add_timed_idea = {
+				idea = VLR_SPR_political_amnesty
+				days = 365
+			}
+		}
+	}	
+
+	focus = {
+		id = VLR_SPR_continue_the_trials_of_Madrid
+		icon = GFX_goal_continuous_suppression
+		x = 15
+		y = 0
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		mutually_exclusive = { focus = VLR_SPR_political_amnesty_for_lesser_range_officers }
+		ai_will_do = {
+			factor = 50
+		}
+		completion_reward = {
+			add_political_power= 50
+			every_state = {
+				limit = {
+					is_core_of = SPA
+				}
+				add_core_of = SPR
+				remove_core_of = SPA
+			}
+			add_timed_idea = {
+				idea = VLR_SPR_officials_purged
+				days = 365
+			}
+		}
+	}	
+
+	focus = {
+		id = VLR_SPR_stabilize_the_government
+		icon = GFX_goal_generic_neutrality_focus
+		x = 13
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_political_amnesty_for_lesser_range_officers
+			focus = VLR_SPR_continue_the_trials_of_Madrid
+		}
+		
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 120
+			every_state = {
+				limit = {
+					is_core_of = SPA
+				}
+				add_core_of = SPR
+				remove_core_of = SPA
+			}
+			remove_ideas = SPR_political_violence
+			hidden_effect = {
+				SPR_clr_national_strikes = yes
+			}
+		}
+	}
+
+
+	##############################################################################################################################
+	## DEMOCRATIC FOCUSES
+	############################################################################################################################## 
+	
+	focus = {
+		id = VLR_SPR_support_socialdemocracy
+		icon = GFX_goal_support_democracy
+		x = 3
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_stabilize_the_government
+		}
+		mutually_exclusive = { focus = VLR_SPR_appoint_socialist_government }
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.25
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## DEMOCRATIC - COLUMN 1
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_reform_healthcare_system
+		icon = GFX_goal_generic_intelligence_exchange
+		x = 0
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_support_socialdemocracy
+		}
+		completion_reward = {
+			add_ideas = VLR_SPR_social_reforms_1_idea
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_institucion_libre_de_ensenanza
+		icon = GFX_focus_generic_self_management
+		x = 0
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_reform_healthcare_system
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = VLR_SPR_social_reforms_1_idea
+				add_idea = VLR_SPR_social_reforms_2_idea
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_agreements_with_cnt
+		icon = GFX_goal_generic_national_unity
+		x = 0
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_institucion_libre_de_ensenanza
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = VLR_SPR_social_reforms_2_idea
+				add_idea = VLR_SPR_social_reforms_3_idea
+			}
+			remove_ideas = SPR_national_strikes_7
+		}
+	}
+
+	##############################################################################################################################
+	## DEMOCRATIC - COLUMN 2
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_the_agrarian_reform
+		icon = GFX_goal_generic_construct_civilian
+		x = 2
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_support_socialdemocracy
+		}
+		completion_reward = {
+			add_ideas = VLR_SPR_agrarian_reforms_idea
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_expand_railroads_network
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 2
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_agrarian_reform
+		}
+		completion_reward = {
+			788 = { 
+				if = {
+					limit = {
+						is_core_of = ROOT
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			170 = {
+				if = {
+					limit = {
+						is_core_of = ROOT
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_develop_heavy_industry
+		icon = GFX_focus_generic_industry_3
+		x = 2
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_expand_railroads_network
+		}
+		completion_reward = {
+			41 = {
+				if = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 0
+						}
+						is_core_of = ROOT
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = industrial_complex
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## DEMOCRATIC - COLUMN 3
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_federalism
+		icon = GFX_goal_generic_demand_territory
+		x = 4
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_support_socialdemocracy
+		}
+		mutually_exclusive = { focus = VLR_SPR_integralism }
+		completion_reward = {
+			add_ideas = VLR_SPR_federalism_idea
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_reform_the_constitution
+		icon = GFX_goal_generic_forceful_treaty
+		x = 4
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_federalism
+		}
+		completion_reward = {
+			172 = {
+				remove_core_of = NAV
+			}
+			792 = {
+				remove_core_of = NAV
+			}
+			171 = {
+				remove_core_of = GLC
+			}
+			165 = {
+				remove_core_of = CAT
+			}
+			add_stability = 0.03
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_a_new_federal_state
+		icon = GFX_focus_spr_war_of_independence
+		x = 4
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_reform_the_constitution
+		}
+		completion_reward = {
+			set_cosmetic_tag = VLR_SPR_federal
+			set_party_name = {
+				ideology = neutrality
+				long_name = VLR_SPR_neutrality_1_long
+				name = VLR_SPR_neutrality_1
+			}
+			add_popularity = { 
+				ideology = neutrality
+				popularity = 0.35
+			}
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.45
+			}
+			add_stability = 0.05
+		}
+	}
+	
+	##############################################################################################################################
+	## DEMOCRATIC - COLUMN 4
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_integralism
+		icon = GFX_focus_intervention_spain_republic
+		x = 6
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_support_socialdemocracy
+		}
+		mutually_exclusive = { focus = VLR_SPR_federalism }
+		completion_reward = {
+			add_ideas = VLR_SPR_integralism_idea
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_the_basque_question
+		icon = GFX_focus_generic_treaty
+		x = 6
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_integralism
+		}
+		completion_reward = {
+			add_stability = -0.05
+			add_political_power = 50
+			every_owned_state = {
+				limit = {
+					OR = {
+						state = 165
+						state = 171
+						state = 792
+					}
+				}
+				remove_dynamic_modifier = { modifier = autonomous_state }
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_secure_the_autonomies_system
+		icon = GFX_focus_spr_maintain_the_republic
+		x = 6
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_basque_question
+		}
+		completion_reward = {
+			set_cosmetic_tag = VLR_SPR_integral
+			set_party_name = {
+				ideology = neutrality
+				long_name = VLR_SPR_neutrality_2_long
+				name = VLR_SPR_neutrality_2
+			}
+			add_popularity = { 
+				ideology = neutrality
+				popularity = 0.25
+			}
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.35
+			}
+			add_stability = 0.10
+		}
+	}
+	
+	##############################################################################################################################
+	## DEMOCRATIC - FINISH TREE
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_the_spanish_miracle
+		icon = GFX_focus_spa_the_spanish_miracle
+		x = 3
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_develop_heavy_industry
+		}
+		prerequisite = {
+			focus = VLR_SPR_agreements_with_cnt
+		}
+		prerequisite = {
+			focus = VLR_SPR_secure_the_autonomies_system
+			focus = VLR_SPR_a_new_federal_state
+		}
+		completion_reward = {
+			remove_ideas = VLR_SPR_agrarian_reforms_idea
+			add_ideas = VLR_SPR_spanish_miracle_idea
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_exploit_our_riches
+		icon = GFX_goal_generic_oil_refinery
+		x = 3
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_spanish_miracle
+		}
+		
+		available = {
+			controls_state = 297
+			controls_state = 790
+		}
+
+		completion_reward = {
+			add_political_power = 60
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 297
+			}
+			add_resource = {
+				type = steel
+				amount = 10
+				state = 790
+			}
+			add_resource = {
+				type = steel
+				amount = 6
+				state = 169
+			}
+			add_resource = {
+				type = steel
+				amount = 4
+				state = 174
+			}
+			add_resource = {
+				type = aluminium
+				amount = 6
+				state = 41
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_countersign_the_popular_front
+		icon = GFX_focus_hol_the_foundations_of_defense
+		x = 1
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_spanish_miracle
+		}
+		completion_reward = {
+			add_ideas = VLR_SPR_popular_front
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_radio_improvements
+		icon = GFX_goal_generic_radar
+		x = 5
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_spanish_miracle
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					original_research_slots < 3
+				}
+				add_research_slot = 1
+			}
+			if = {
+				limit = {
+					original_research_slots > 2
+				}
+				add_tech_bonus = {
+					name = electronics_bonus
+					bonus = 1.0
+					uses = 1
+					category = electronics
+				}
+			}
+		}
+	}		
+	
+	##############################################################################################################################
+	## COMMUNIST FOCUSES
+	############################################################################################################################## 
+	
+	focus = {
+		id = VLR_SPR_appoint_socialist_government
+		icon = GFX_focus_generic_soviet_politics
+		x = 23
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_stabilize_the_government
+		}
+		
+		mutually_exclusive = { focus = VLR_SPR_support_socialdemocracy }
+		
+		completion_reward = {
+			add_stability = 0.05
+			add_popularity = { 
+				ideology = democratic
+				popularity = -0.05
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = 0.25
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## COMMUNIST - COLUMN 1
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_spanish_marxism
+		icon = GFX_goal_support_fourth_int
+		x = 20
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_appoint_socialist_government
+		}
+		mutually_exclusive = { focus = VLR_SPR_approach_moscow }
+		
+		completion_reward = {
+			add_stability = 0.05
+			add_timed_idea = {
+				idea = VLR_SPR_spanish_marxism_idea
+				days = 120
+			}
+			set_party_name = {
+				ideology = communism
+				long_name = VLR_SPR_communism_poum_long
+				name = VLR_SPR_communism_poum
+			}
+			create_country_leader = {
+				name = "Julián Gorkin"
+				desc = "POLITICS_JULIAN_GORKIN_DESC"
+				picture = "GFX_portrait_SPR_julian_gorkin"
+				expire = "1965.1.1"
+				ideology = marxism
+				traits = {
+					militant_socialist
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_deal_with_the_anarchists
+		icon = GFX_goal_anti_comintern_pact
+		x = 20
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_spanish_marxism
+		}
+		completion_reward = {
+			remove_ideas = SPR_national_strikes_7
+			add_ideas = VLR_SPR_anarchists_appeased
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_the_socialist_bloc
+		icon = GFX_focus_prc_agrarian_socialism
+		x = 20
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_deal_with_the_anarchists
+		}
+		completion_reward = {
+			set_cosmetic_tag = VLR_SPR_communist_1
+			create_faction = VLR_SPR_socialist_bloc
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = 0.35
+			}
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.25
+			}
+			add_stability = 0.10
+			hidden_effect = {
+				add_popularity = { 
+					ideology = fascism
+					popularity = -1.0
+				}
+				add_popularity = { 
+					ideology = neutrality
+					popularity = -1.0
+				}
+			}
+		}
+	}
+
+	##############################################################################################################################
+	## COMMUNIST - COLUMN 2
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_approach_moscow
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		x = 22
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_appoint_socialist_government
+		}
+		mutually_exclusive = { focus = VLR_SPR_spanish_marxism }
+		completion_reward = {
+			add_stability = 0.05
+			add_timed_idea = {
+				idea = VLR_SPR_soviet_influence
+				days = 365
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_soviet_advisors
+		icon = GFX_focus_generic_military_mission
+		x = 22
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_approach_moscow
+		}
+		
+		available = {
+			#VLR_SOV_will_support = yes	
+		}
+
+		completion_reward = {
+			add_political_power = 50
+			add_ideas = {
+				VLR_SPR_soviet_advisors_idea
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_join_the_comintern
+		icon = GFX_focus_generic_join_comintern
+		x = 22
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		
+		ai_will_do = {
+			factor = 100
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_soviet_advisors
+		}
+		
+		available = {
+			Not = { has_war_with = SOV }
+			SOV = { has_government = communism }
+			OR = {
+				is_subject = no
+				is_subject_of = SOV
+			}
+		}
+		
+		bypass = {
+			is_in_faction_with = SOV
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
+			set_cosmetic_tag = VLR_SPR_communist_2
+			set_politics = {
+				ruling_party = communism
+				elections_allowed = no
+			}
+			add_stability = 0.10
+			hidden_effect = {
+				add_popularity = { 
+					ideology = fascism
+					popularity = -1.0
+				}
+				add_popularity = { 
+					ideology = neutrality
+					popularity = -1.0
+				}
+			}
+			if = {
+				limit = {
+					SOV = {
+						is_faction_leader = yes
+						has_government = communism
+					}
+				}
+				SOV = {
+					country_event = generic.2
+				}
+			}
+			else_if = {
+				limit = {
+					SOV = {
+						is_faction_leader = no
+						is_in_faction = yes
+					}
+				}
+				random_other_country = {
+					limit = {
+						is_faction_leader = yes
+						is_in_faction_with = SOV
+					}
+					country_event = generic.2
+				}
+			}			
+		}
+	}
+
+	##############################################################################################################################
+	## COMMUNIST - COLUMN 3
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_colectivize_factories
+		icon = GFX_goal_generic_soviet_construction
+		x = 24
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_appoint_socialist_government
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_provide_to_the_people
+		icon = GFX_goal_generic_construction2
+		x = 24
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_colectivize_factories
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_mujeres_libres
+		icon = GFX_goal_generic_demand_territory
+		x = 24
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_provide_to_the_people
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	##############################################################################################################################
+	## COMMUNIST - COLUMN 4
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_land_redistribution 
+		icon = GFX_goal_generic_construct_civilian
+		x = 26
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_appoint_socialist_government
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_connect_the_country
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 26
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_land_redistribution
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_the_three_years_plan
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 26
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_connect_the_country
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## COMMUNIST - FINISH TREE
+	##############################################################################################################################
+
+	focus = {
+		id = VLR_SPR_fullfil_the_revolution
+		icon = GFX_focus_spr_war_of_independence
+		x = 23
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_mujeres_libres
+		}
+		prerequisite = {
+			focus = VLR_SPR_the_three_years_plan
+		}
+		prerequisite = {
+			focus = VLR_SPR_join_the_comintern
+			focus = VLR_SPR_the_socialist_bloc
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_electromechanic_advances
+		icon = GFX_goal_generic_production2
+		x = 21
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_fullfil_the_revolution
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_new_spanish_reality
+		icon = GFX_focus_generic_soviet_politics
+		x = 23
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_fullfil_the_revolution
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_public_literacy
+		icon = GFX_focus_generic_socialist_science
+		x = 25
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_fullfil_the_revolution
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	##############################################################################################################################
+	## MIDDLE FOCUSES
+	############################################################################################################################## 
+
+	focus = {
+		id = VLR_SPR_define_foreing_policy
+		icon = GFX_goal_generic_intelligence_exchange
+		x = 13
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_support_socialdemocracy
+			focus = VLR_SPR_appoint_socialist_government
+		}
+		completion_reward = {
+			add_political_power = 100
+		}
+	}	
+
+	
+	##############################################################################################################################
+	## MIDDLE FOCUSES - COMMON BRANCH
+	############################################################################################################################## 
+
+	focus = {
+		id = VLR_SPR_seek_for_foreign_invests
+		icon = GFX_goal_generic_consumer_goods
+		x = 13
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_interventionism
+			focus = VLR_SPR_isolationism
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	#Left
+	
+	focus = {
+		id = VLR_SPR_approach_the_british
+		icon = GFX_focus_chi_british_cooperation
+		x = 12
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_seek_for_foreign_invests
+		}
+		mutually_exclusive = { focus = VLR_SPR_consider_the_soviet_proposal }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_buy_equipment
+		icon = GFX_goal_rhineland
+		x = 12
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_approach_the_british
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	#Right
+	
+	focus = {
+		id = VLR_SPR_consider_the_soviet_proposal
+		icon = GFX_focus_chi_mission_to_the_soviet_union
+		x = 14
+		y = 6
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_seek_for_foreign_invests
+		}
+		mutually_exclusive = { focus = VLR_SPR_approach_the_british }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+
+	focus = {
+		id = VLR_SPR_soviet_military_aid
+		icon = GFX_focus_generic_combined_arms
+		x = 14
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_consider_the_soviet_proposal
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	#Rejoin
+	
+	focus = {
+		id = VLR_SPR_refuge_for_foreign_intellectuals
+		icon = GFX_focus_research
+		x = 13
+		y = 8
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_soviet_military_aid
+			focus = VLR_SPR_buy_equipment
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_the_international_brigades
+		icon = GFX_focus_spr_no_pasaran
+		x = 13
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_refuge_for_foreign_intellectuals
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+
+	##############################################################################################################################
+	## MIDDLE FOCUSES - LEFT BRANCH
+	############################################################################################################################## 
+	
+	focus = {
+		id = VLR_SPR_isolationism
+		icon = GFX_goal_generic_defence
+		x = 10
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		mutually_exclusive = { focus = VLR_SPR_interventionism }
+		prerequisite = {
+			focus = VLR_SPR_define_foreing_policy
+		}
+		completion_reward = {
+			add_ideas = deterrence
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_secure_the_border_crossings
+		icon = GFX_goal_generic_fortify_city
+		x = 9
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_isolationism
+		}
+		
+		available = {
+			has_full_control_of_state = 792
+			has_full_control_of_state = 172
+			has_full_control_of_state = 166
+			has_full_control_of_state = 794
+			has_full_control_of_state = 165
+		}
+		
+		completion_reward = {
+			792 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						id = 6756
+					}
+					level = 3
+					instant_build = yes
+				}
+			}
+			165 = {
+				add_building_construction = {
+					type = bunker
+					province = {
+						id = 3899
+						id = 11779
+						id = 9824
+					}
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_protect_the_strait
+		icon = GFX_goal_generic_forceful_treaty
+		x = 9
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_secure_the_border_crossings
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_sway_portugal
+		icon = GFX_focus_generic_befriend_portugal
+		x = 9
+		y = 8
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_protect_the_strait
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_mutual_assistance
+		icon = GFX_goal_generic_improve_relations
+		x = 8
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_sway_portugal
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_the_iberic_union
+		icon = GFX_goal_molotov_ribbentrop_pact
+		x = 10
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_sway_portugal
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	##############################################################################################################################
+	## MIDDLE FOCUSES - RIGHT BRANCH
+	############################################################################################################################## 
+	
+	focus = {
+		id = VLR_SPR_interventionism
+		icon = GFX_goal_generic_political_pressure
+		x = 16
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		mutually_exclusive = { focus = VLR_SPR_isolationism }
+		prerequisite = {
+			focus = VLR_SPR_define_foreing_policy
+		}
+		completion_reward = {
+			set_rule = { can_send_volunteers = yes }
+		}
+	}		
+	
+	focus = {
+		id = VLR_SPR_prepare_for_the_next_war
+		icon = GFX_goal_generic_small_arms
+		x = 17
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_interventionism
+		}
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_bastion_of_spionage
+		icon = GFX_goal_tripartite_pact
+		x = 17
+		y = 7
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_prepare_for_the_next_war
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}	
+
+	focus = {
+		id = VLR_SPR_join_the_allies
+		icon = GFX_goal_support_democracy
+		x = 17
+		y = 8
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		
+		available = {
+			ENG = { has_government = democratic }
+			threat > 0.25
+		}
+		
+		bypass = {
+			is_in_faction_with = ENG
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_bastion_of_spionage
+		}
+		
+		completion_reward = {
+			add_stability = 0.05
+			ENG = { country_event = { id = generic.2 hours = 6 } }
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_amend_the_treaty_of_1713
+		icon = GFX_focus_generic_treaty
+		x = 16
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_join_the_allies
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 100
+			add_popularity = { 
+				ideology = democratic
+				popularity = 0.15
+			}
+			add_popularity = { 
+				ideology = communism
+				popularity = -0.05
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_intellectual_interchanges
+		icon = GFX_goal_tfv_generic_tech_sharing
+		x = 18
+		y = 9
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = VLR_SPR_join_the_allies
+		}
+		
+		available = {
+			is_in_faction_with = ENG
+		}
+		
+		completion_reward = {
+			if = {
+				limit = {
+					original_research_slots < 3
+				}
+				add_research_slot = 1
+			}
+			if = {
+				limit = {
+					original_research_slots > 2
+				}
+				add_tech_bonus = {
+					name = electronics_bonus
+					bonus = 1.0
+					uses = 1
+					category = electronics
+				}
+				add_tech_bonus = {
+					name = industrial_bonus
+					bonus = 1.0
+					uses = 1
+					category = industry
+				}	
+				add_tech_bonus = {
+					name = infantry_artillery_bonus #@#
+					bonus = 1.0
+					uses = 1
+					category = infantry_weapons
+					category = artillery
+				}				
+			}	
+		}
+	}
+
+	##############################################################################################################################
+	## ARMY FOCUS
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_the_military_reform_of_1931
+		icon = GFX_goal_generic_forceful_treaty
+		x = 34
+		y = 0
+		cost = 5
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		available = {
+			OR = {
+				has_completed_focus = VLR_SPR_approach_moscow
+				has_completed_focus = VLR_SPR_spanish_marxism
+				has_completed_focus = VLR_SPR_support_socialdemocracy
+			}
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			#EVENT FOR GENERALS
+			army_experience = 10
+			add_stability = 0.05
+			remove_ideas = SPR_disbanded_army_1
+		}
+	}
+	
+	# Mobility focus
+	
+	focus = {
+		id = VLR_SPR_mobile_warfare
+		icon = GFX_goal_generic_position_armies
+		x = 32
+		y = 1
+		cost = 5
+		available_if_capitulated = yes
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_static_warfare
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_the_military_reform_of_1931
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = VLR_SPR_vicente_rojo
+		}
+	}
+	
+	# Static focus
+	
+	focus = {
+		id = VLR_SPR_static_warfare
+		icon = GFX_goal_generic_major_war
+		x = 36
+		y = 1
+		cost = 5
+		available_if_capitulated = yes
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_mobile_warfare
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_the_military_reform_of_1931
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = VLR_SPR_jose_miaja
+		}
+	}
+	
+	##############################################################################################################################
+	## ARMY FOCUSES - COLUMN 1
+	##############################################################################################################################	
+	
+	focus = {
+		id = VLR_SPR_infantry_focus
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 30
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_mobile_warfare
+		}
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_the_trubia_naval
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = SPR_engineering_advances
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = SPR_engineering_advances
+				bonus = 0.5
+				uses = 1
+				category = artillery
+			}	
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_SPR_star_bonifacio_echeverria
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_integrate_the_militias
+		icon = GFX_focus_spr_no_pasaran
+		x = 30
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		
+		prerequisite = {
+			focus = VLR_SPR_infantry_focus
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			unlock_decision_category_tooltip = SPR_VLR_integrate_the_militias
+		}
+	}	
+	
+	focus = {
+		id = VLR_SPR_infantry_tanks
+		icon = GFX_goal_generic_army_tanks
+		x = 30
+		y = 4
+		cost = 7
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_integrate_the_militias
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = FRA_heavy_armor_focus
+				bonus = 1.0
+				uses = 1
+				category = cat_heavy_armor
+			}
+			custom_effect_tooltip = available_military_high_command
+			show_ideas_tooltip = VLR_SPR_enrique_jurado
+		}
+	}	
+	
+	##############################################################################################################################
+	## ARMY FOCUSES - COLUMN 2
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_the_trubia_naval
+		icon = GFX_goal_generic_army_tanks
+		x = 32
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_infantry_focus
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_mobile_warfare
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		bypass = {
+			has_tech = basic_light_tank
+			has_tech = motorised_infantry 
+			has_tech = armored_car1
+		}
+		
+		completion_reward = {
+			set_variable = { huehue = 0 }
+			if = {
+				limit = { NOT = { has_tech = gwtank } }
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 1
+					technology = gwtank	
+				}
+			}
+			if = {
+				limit = { NOT = { has_tech = basic_light_tank } }
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 1
+					technology = basic_light_tank	
+				}
+			}
+			if = {
+				limit = { NOT = { has_tech = armored_car1 } }
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 1
+					technology = armored_car1	
+				}
+			}
+			if = { 
+				limit = {
+					NOT = { has_tech = motorised_infantry }
+				}
+				add_tech_bonus = {
+					bonus = 1.0
+					uses = 1
+					category = motorized_equipment
+				}
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_SPR_hispano_suiza
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_division_mixta_blindada
+		icon = GFX_goal_generic_cavalry
+		x = 32
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		
+		prerequisite = {
+			focus = VLR_SPR_the_trubia_naval
+		}
+		
+		available = {
+			has_tech = basic_light_tank
+			has_tech = motorised_infantry 
+			has_tech = armored_car1
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			army_experience = 15
+			hidden_effect = {
+				#Armored Cars
+				if = {
+					limit = {
+						has_tech = armored_car3
+					}
+					add_equipment_to_stockpile = {
+						type = armored_car_equipment_2
+						amount = 120
+					} 
+				} 
+				else_if = {
+					limit = {
+						has_tech = armored_car2
+					}
+					add_equipment_to_stockpile = {
+						type = armored_car_equipment_1
+						amount = 120
+					} 
+				} 
+				else = {
+					add_equipment_to_stockpile = {
+						type = gw_armored_car_equipment
+						amount = 120
+					} 
+				}
+				
+				#Tanks
+				if = {
+					limit = {
+						has_tech = advanced_light_tank 
+					}
+					add_equipment_to_stockpile = {
+						type = light_tank_equipment_3
+						amount = 120
+					} 
+				} else_if = {
+					limit = {
+						has_tech = improved_light_tank 
+					}
+					add_equipment_to_stockpile = {
+						type = light_tank_equipment_2
+						amount = 180
+					} 
+				} else = {
+					add_equipment_to_stockpile = {
+						type = light_tank_equipment_1
+						amount = 180
+					} 
+				}
+				
+				#Motorised Equipment
+				add_equipment_to_stockpile = {
+					type = motorized_equipment_1
+					amount = 160
+				} 
+				#Support Equipment
+				add_equipment_to_stockpile = {
+					type = support_equipment_1
+					amount = 70
+				} 
+				
+				division_template = {
+					name = "Division Mixta Blindada" 	
+					#division_names_group = VLR_SPR_DBM_01
+					priority = 2
+					regiments = {
+						light_armor = { x = 0 y = 0 }		
+						light_armor = { x = 0 y = 1 }		
+						light_armor = { x = 0 y = 2 }		
+						motorized = { x = 1 y = 0 }			
+						motorized = { x = 1 y = 1 }
+						motorized = { x = 1 y = 2 }	
+						armored_car = { x = 2 y = 0 }	
+						armored_car = { x = 2 y = 1 }	
+						bicycle_battalion = { x = 3 y = 0 }	
+						bicycle_battalion = { x = 3 y = 1 }
+					}
+					support = {
+						recon = { x = 0 y = 0 }      		
+						artillery = { x = 0 y = 1 }
+						engineer = { x = 0 y = 2 }
+						signal_company = { x = 0 y = 3 }
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"1a División Mixta Blindada\" division_template = \"Division Mixta Blindada\" start_experience_factor = 1.0"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"2a División Mixta Blindada\" division_template = \"Division Mixta Blindada\" start_experience_factor = 1.0"  
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_mechanization_focus
+		icon = GFX_goal_generic_build_tank
+		x = 32
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_division_mixta_blindada
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mechanized_equipment
+			}
+			custom_effect_tooltip = available_military_high_command
+			show_ideas_tooltip = VLR_SPR_pozas_perea
+		}
+	}
+
+	##############################################################################################################################
+	## ARMY FOCUSES - COLUMN 3
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_expand_the_trubia_factory
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 34
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_static_warfare
+			focus = VLR_SPR_mobile_warfare
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {			
+			790 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_close_air_support
+		icon = GFX_goal_generic_CAS
+		x = 34
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_the_trubia_factory
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cas_bomber 
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_develop_support_brigades
+		icon = GFX_focus_generic_combined_arms
+		x = 34
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_close_air_support
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 3
+				category = support_tech 
+			}
+		}
+	}
+
+
+	##############################################################################################################################
+	## ARMY FOCUSES - COLUMN 4
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_fortification_focus
+		icon = GFX_goal_generic_construct_military
+		x = 36
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		
+		prerequisite = {
+			focus = VLR_SPR_static_warfare
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			custom_effect_tooltip = available_military_high_command
+			show_ideas_tooltip = VLR_SPR_toribio_martinez
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_equipment_improvements
+		icon = GFX_goal_generic_small_arms
+		x = 36
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_fortification_focus
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons 
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_superior_firepower
+		icon = GFX_goal_generic_army_artillery2
+		x = 36
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_equipment_improvements
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = artillery
+			}
+			army_experience = 10
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_SPR_esperanza_y_cia
+		}
+	}
+	
+	##############################################################################################################################
+	## ARMY FOCUSES - COLUMN 5
+	##############################################################################################################################
+	
+		
+	focus = {
+		id = VLR_SPR_doctrine_discoveries
+		icon = GFX_goal_generic_army_doctrines
+		x = 38
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_the_military_reform_of_1931
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_expand_the_carabineros
+		icon = GFX_goal_generic_military_sphere
+		x = 38
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		
+		prerequisite = {
+			focus = VLR_SPR_doctrine_discoveries
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_ideas = VLR_SPR_expand_the_carabineros
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_doctrine_discoveries_ii
+		icon = GFX_goal_generic_army_doctrines
+		x = 38
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_the_carabineros
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## ARMY FOCUSES - FINISH
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_el_ejercito_popular
+		icon = GFX_focus_generic_manpower
+		x = 34
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER FOCUS_FILTER_INDUSTRY }
+		
+		prerequisite = {
+			focus = VLR_SPR_doctrine_discoveries_ii
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_develop_support_brigades
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_infantry_tanks
+			focus = VLR_SPR_mechanization_focus
+			focus = VLR_SPR_superior_firepower
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_ideas = VLR_SPR_the_popular_army
+		}
+	}
+	
+	##############################################################################################################################
+	## NAVY FOCUSES - STARTING
+	##############################################################################################################################
+		
+	focus = {
+		id = VLR_SPR_review_our_naval_plans
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 47
+		y = 0
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		available = {
+			has_completed_focus = VLR_SPR_stabilize_the_government
+		}
+		
+		completion_reward = {
+			navy_experience = 15
+			171 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+		
+	##############################################################################################################################
+	## NAVY FOCUSES - STARTING
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_expand_el_ferrol
+		icon = GFX_goal_generic_build_navy
+		x = 42
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		
+		prerequisite = {
+			focus = VLR_SPR_review_our_naval_plans
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			171 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = naval_base
+						level = 2
+						province = 758
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_nationalize_the_secn
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 42
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_INDUSTRY }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_el_ferrol
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			171 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_secn
+		}
+	}
+	
+	##############################################################################################################################
+	## NAVY FOCUSES - OCEANIC
+	##############################################################################################################################
+		
+	focus = {
+		id = VLR_SPR_oceangoing_focus
+		icon = GFX_focus_generic_navy_battleship2
+		x = 45
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		
+		prerequisite = {
+			focus = VLR_SPR_review_our_naval_plans
+		}
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			169 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_modernize_the_espana_class
+		icon = GFX_goal_generic_navy_battleship
+		x = 44
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		
+		prerequisite = {
+			focus = VLR_SPR_oceangoing_focus
+		}
+				
+		mutually_exclusive = {
+			focus = VLR_SPR_seek_for_new_vessels
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_seek_for_new_vessels
+		icon = GFX_focus_generic_cruiser2
+		x = 46
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		
+		prerequisite = {
+			focus = VLR_SPR_oceangoing_focus
+		}
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_modernize_the_espana_class
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_develop_escort_carriers
+		icon = GFX_goal_generic_navy_carrier
+		x = 45
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		
+		prerequisite = {
+			focus = VLR_SPR_seek_for_new_vessels
+			focus = VLR_SPR_modernize_the_espana_class
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cv_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_heavy_cruisers_effort
+		icon = GFX_focus_generic_cruiser2
+		x = 45
+		y = 4
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		
+		prerequisite = {
+			focus = VLR_SPR_develop_escort_carriers
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = FRA_carrier_focus
+				bonus = 1.0
+				uses = 2
+				category = ca_tech
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## NAVY FOCUSES - COASTAL
+	##############################################################################################################################
+			
+	focus = {
+		id = VLR_SPR_coastal_focus
+		icon = GFX_goal_generic_navy_cruiser
+		x = 49
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_review_our_naval_plans
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			165 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = naval_base
+						level = 2
+						province = 9764
+						instant_build = yes
+					}
+				}
+			}
+			167 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = naval_base
+						level = 2
+						province = 6906
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_modernize_the_churruca_class
+		icon = GFX_focus_generic_destroyer
+		x = 48
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_coastal_focus
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = dd_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_boost_the_d_class_development
+		icon = GFX_goal_generic_navy_submarine
+		x = 50
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_coastal_focus
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_light_cruisers_effort
+		icon = GFX_focus_generic_cruiser2
+		x = 49
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_boost_the_d_class_development
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_modernize_the_churruca_class
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cl_tech
+			}
+		}
+	}
+	
+	##############################################################################################################################
+	## NAVY FOCUSES - RESEARCH
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_naval_doctrine_advances
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		x = 52
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_review_our_naval_plans
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	
+	
+	
+	focus = {
+		id = VLR_SPR_infanteria_de_marina
+		icon = GFX_goal_generic_amphibious_assault
+		x = 52
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_MANPOWER }
+		ai_will_do = {
+			factor = 50
+		}
+		
+		prerequisite = {
+			focus = VLR_SPR_naval_doctrine_advances
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				category = tp_tech
+				category = marine_tech
+				uses = 2
+				bonus = 1.0
+			}
+		}
+	}
+
+	
+	##############################################################################################################################
+	## NAVAL FOCUSES - FINISH
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_naval_doctrine_advances_ii
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		x = 47
+		y = 5
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		
+		prerequisite = {
+			focus = VLR_SPR_heavy_cruisers_effort
+			focus = VLR_SPR_light_cruisers_effort
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+	
+	##############################################################################################################################
+	## AIR FOCUSES
+	##############################################################################################################################
+	
+	focus = {
+		id = VLR_SPR_air_innovations
+		icon = GFX_goal_generic_air_fighter2
+		x = 60
+		y = 0
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		available = {
+			has_completed_focus = VLR_SPR_stabilize_the_government
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 15
+		}
+	}
+	
+	# Fighter Focus
+	
+	focus = {
+		id = VLR_SPR_improve_fighter_corps
+		icon = GFX_goal_generic_air_fighter
+		x = 59
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_air_innovations
+		}
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_expand_bomber_force
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_commit_hispano_suiza
+		icon = GFX_goal_generic_build_airforce
+		x = 58
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_improve_fighter_corps
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_SPR_hispano_aviacion
+		}
+	}	
+
+	focus = {
+		id = VLR_SPR_close_support_aircraft
+		icon = GFX_goal_generic_air_naval_bomber
+		x = 56
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_improve_fighter_corps
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cas_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = VLR_SPR_mototurbocompresor
+		icon = GFX_focus_research
+		x = 58
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_commit_hispano_suiza
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 20
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = jet_technology
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = rocketry
+			}
+		}
+	}		
+	
+	# Bomber Focus
+	
+	focus = {
+		id = VLR_SPR_expand_bomber_force
+		icon = GFX_goal_generic_air_bomber
+		x = 61
+		y = 1
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_air_innovations
+		}
+		
+		mutually_exclusive = {
+			focus = VLR_SPR_improve_fighter_corps
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = tactical_bomber
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_commit_casa
+		icon = GFX_goal_generic_build_airforce
+		x = 62
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_bomber_force
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = VLR_SPR_casa
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_heavy_fighter_improvements
+		icon = GFX_focus_generic_air_defense
+		x = 62
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_commit_casa
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 20
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_heavy_fighter
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_strategic_bomber_focus
+		icon = GFX_goal_generic_occupy_start_war
+		x = 64
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_bomber_force
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_strategic_bomber
+			}
+		}
+	}
+	
+	# MIDDLE BRANCH
+	
+	focus = {
+		id = VLR_SPR_modern_air_doctrines_i
+		icon = GFX_goal_generic_air_doctrine
+		x = 60
+		y = 2
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_expand_bomber_force
+			focus = VLR_SPR_improve_fighter_corps
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 15
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	
+	focus = {
+		id = VLR_SPR_modern_air_doctrines_ii
+		icon = GFX_goal_generic_air_doctrine
+		x = 60
+		y = 3
+		cost = 10
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_STABILITY }
+		
+		prerequisite = {
+			focus = VLR_SPR_commit_casa
+			focus = VLR_SPR_commit_hispano_suiza
+		}
+		
+		ai_will_do = {
+			factor = 50
+		}
+		
+		completion_reward = {
+			air_experience = 20
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+}

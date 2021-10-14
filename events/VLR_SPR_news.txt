@@ -1,0 +1,16 @@
+add_namespace = VLR_SPR_NEWS
+
+news_event = {
+	id = VLR_SPR_NEWS.0000
+	title = VLR_SPR_NEWS.0000.t
+	desc = VLR_SPR_NEWS.0000.d
+	picture = news_event_generic_read_write
+	
+	major = yes
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = VLR_SPR_NEWS.0000.a
+	}
+}

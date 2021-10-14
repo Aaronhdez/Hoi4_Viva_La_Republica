@@ -1,0 +1,34 @@
+################
+##### SPR ######
+################
+
+SPR_VLR_start_counter_plot = {
+	priority = 6
+	icon = spr_the_inevitable_civil_war
+	
+	allowed = {
+		original_tag = SPR
+		has_dlc = "La Resistance"
+	}
+
+	visible = {
+		has_country_flag = SPR_spanish_elections_flag
+		has_country_flag = VLR_SPR_counter_plot_category
+		NOT = { has_global_flag = spanish_civil_war }
+	}
+}
+
+SPR_VLR_integrate_the_militias = {
+	priority = 6
+	icon = spr_the_inevitable_civil_war
+	
+	allowed = {
+		original_tag = SPR
+		has_dlc = "La Resistance"
+	}
+
+	visible = {
+		has_completed_focus = VLR_SPR_integrate_the_militias
+		NOT = { has_country_flag = militias_integrated }
+	}
+}

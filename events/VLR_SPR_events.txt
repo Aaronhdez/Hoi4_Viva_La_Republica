@@ -1,0 +1,94 @@
+add_namespace = VLR_SPR_EVN
+
+country_event = {
+	id = VLR_SPR_EVN.0000
+	title = VLR_SPR_EVN.0000.title
+	desc = VLR_SPR_EVN.0000.desc
+	picture = GFX_report_event_spr_franco_generals
+
+	fire_only_once = yes
+
+	hidden = yes 
+	
+	trigger = {
+		tag = SPR
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		SPR = {
+			country_event = { id = VLR_SPR_EVN.0001 days = 145 } # where X is the number of days from January 9 to your desired date
+		}
+	}
+
+	option = {
+		name = VLR_SPR_EVN.0000.a
+	}
+}
+
+country_event = {
+	id = VLR_SPR_EVN.0001
+	title = VLR_SPR_EVN.0001.title
+	desc = VLR_SPR_EVN.0001.desc
+	picture = GFX_report_event_spr_franco_generals
+
+	fire_only_once = yes	
+	
+	is_triggered_only = yes
+	
+#	trigger = {
+#		tag = SPR
+#		has_active_mission = SPR_military_plot_republicans	
+#		has_dlc = "La Resistance"
+#		date > 1936.5.10 									#HOI4 Checks every 20 days, so this means it will be executed between 1936.5.25 and 1936.6.2
+#	}
+	
+	mean_time_to_happen = {
+		days = 1								
+	}
+	
+	option = {
+		name = VLR_SPR_EVN.0001.a
+		ai_chance = { factor = 15 }
+		add_political_power = 10
+		add_stability = -0.05
+		hidden_effect = {
+			set_country_flag = VLR_SPR_counter_plot_started_0
+			set_country_flag = VLR_SPR_counter_plot_category
+		}
+	}
+	
+	option = {
+		name = VLR_SPR_EVN.0001.b
+		add_days_mission_timeout = {
+			mission = SPR_military_plot_republicans
+			days = 20
+		}		
+		add_political_power = 35
+	}
+}
+
+country_event = {
+	id = VLR_SPR_EVN.0002
+	title = VLR_SPR_EVN.0002.title
+	desc = VLR_SPR_EVN.0002.desc
+	picture = GFX_report_event_spr_franco_generals
+
+	hidden = yes 
+
+	fire_only_once = yes
+
+	hidden = yes 
+	
+	trigger = {
+		tag = SPR
+	}
+
+	option = {
+		name = VLR_SPR_EVN.0002.a
+		set_country_flag = vlr_spr_coup_aborted
+	}
+}

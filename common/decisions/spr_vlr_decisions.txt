@@ -1,0 +1,584 @@
+SPR_VLR_start_counter_plot = {
+
+	###############################
+	#Decision for: Investigate suspicious activities
+	###############################
+
+	SPR_VLR_counter_plot_1 = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 15
+		days_remove = 20
+
+		allowed = {
+			tag = SPR
+		}
+
+		available = {
+			has_country_flag = VLR_SPR_counter_plot_started_0
+			has_country_flag = SPR_spanish_elections_flag
+		}
+
+		modifier = {
+			
+		}
+
+		visible = {
+			tag = SPR
+			has_country_flag = SPR_spanish_elections_flag
+			has_completed_focus = SPR_the_popular_front
+		}
+
+		remove_effect = {
+			add_stability = -0.05
+			add_political_power = 15
+			add_days_mission_timeout = {
+				mission = SPR_military_plot_republicans
+				days = 20
+			}
+			hidden_effect = { 
+				clr_country_flag = VLR_SPR_counter_plot_started_0
+				set_country_flag = VLR_SPR_counter_plot_started_1
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	###############################
+
+	###############################
+
+	SPR_VLR_counter_plot_2 = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 20
+		days_remove = 25
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_country_flag = VLR_SPR_counter_plot_started_1
+			NOT = { has_global_flag = spanish_civil_war }
+		}
+
+		available = {
+			has_country_flag = VLR_SPR_counter_plot_started_1
+		}
+
+		remove_effect = {
+			add_stability = 0.02
+			add_political_power = 20
+			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_popularity = { ideology = communism popularity = 0.05 }
+			add_days_mission_timeout = {
+				mission = SPR_military_plot_republicans
+				days = 20
+			}
+			hidden_effect = { 
+				clr_country_flag = VLR_SPR_counter_plot_started_1
+				set_country_flag = VLR_SPR_counter_plot_started_2
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	###############################
+	#Supress Carlist training camps
+	###############################
+
+	SPR_VLR_counter_plot_3 = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 20
+		days_remove = 25
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_country_flag = VLR_SPR_counter_plot_started_2
+		}
+
+		available = {
+			has_country_flag = VLR_SPR_counter_plot_started_2
+		}
+
+		remove_effect = {
+			add_political_power = 20
+			add_popularity = { ideology = neutrality popularity = -0.1 }
+			add_days_mission_timeout = {
+				mission = SPR_military_plot_republicans
+				days = 37
+			}
+			hidden_effect = { 
+				clr_country_flag = VLR_SPR_counter_plot_started_2
+				set_country_flag = VLR_SPR_counter_plot_started_3
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	###############################
+	#Delay Army shipments
+	###############################
+
+	SPR_VLR_counter_plot_4 = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 30
+		days_remove = 35
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_country_flag = VLR_SPR_counter_plot_started_3
+		}
+
+		available = {
+			has_country_flag = VLR_SPR_counter_plot_started_3
+		}
+
+		remove_effect = {
+			add_stability = 0.03
+			add_political_power = 25
+			add_days_mission_timeout = {
+				mission = SPR_military_plot_republicans
+				days = 50
+			}
+			hidden_effect = { 
+				clr_country_flag = VLR_SPR_counter_plot_started_3
+				set_country_flag = VLR_SPR_counter_plot_started_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	###############################
+
+	###############################
+
+	SPR_VLR_counter_plot_5 = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 20
+		days_remove = 20
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_country_flag = VLR_SPR_counter_plot_started_4
+		}
+
+		available = {
+			has_country_flag = VLR_SPR_counter_plot_started_4
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		remove_effect = {
+			add_stability = 0.05
+			add_political_power = 15
+			add_popularity = { ideology = democratic popularity = 0.1 }
+			add_popularity = { ideology = communism popularity = 0.05 }
+			remove_ideas = SPA_carlism_1 
+			remove_ideas = SPR_military_disloyalty
+			remove_unit_leader = 1108
+			remove_unit_leader = 1109
+			remove_unit_leader = 1110
+			remove_unit_leader = 1111
+			remove_unit_leader = 1112
+			remove_unit_leader = 1113
+			remove_unit_leader = 1114
+			remove_unit_leader = 1115
+			remove_unit_leader = 1116
+			remove_unit_leader = 1118
+			
+			add_ideas = SPR_disbanded_army_1
+			
+			hidden_effect = { 
+				#Clear and set Flags
+				clr_country_flag = VLR_SPR_counter_plot_started_4
+				clr_country_flag = VLR_SPR_counter_plot_category
+				clr_country_flag = SPR_spanish_elections_flag
+				clr_country_flag = SPR_inevitable_civil_war_in_progress_flag
+				clr_country_flag = SPR_primo_de_rivera_first_speech_flag
+				clr_country_flag = SPA_the_army_of_africa_flag
+				clr_country_flag = SPA_secure_the_northern_garrisons_flag
+				clr_country_flag = SPA_negotiate_carlist_support_flag
+				set_country_flag = civil_war_aborted
+				set_global_flag = scw_over
+				set_country_flag = vlr_spr_coup_aborted
+				
+				every_unit_leader = {
+					add_unit_leader_trait = trait_SPR_republican_loyalties
+				}
+				
+				#Rules
+				country_lock_all_division_template = no
+	
+				#News Event
+				news_event = VLR_SPR_NEWS.0000
+				
+				#New focus tree
+				load_focus_tree = {
+					tree = VLR_SPR_spanish_tree
+					keep_completed = no
+				}
+				SPR = {
+					delete_units = {
+						division_template = "División de Infantería"
+						disband = yes
+					}
+					delete_units = {
+						division_template = "División de Caballería"
+						disband = yes
+					}
+					delete_units = {
+						division_template = "Brigada Montaña"
+						disband = yes
+					}
+					delete_units = {
+						division_template = "Brigada de Infantería"
+						disband = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+SPR_VLR_integrate_the_militias = {
+
+	SPR_integrate_jsu_militias = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 50
+		days_remove = 50
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			OR = {
+				has_completed_focus = VLR_SPR_approach_moscow
+				has_completed_focus = VLR_SPR_support_socialdemocracy
+			}
+		}
+
+		available = {
+			
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		remove_effect = {
+			add_stability = 0.025
+			add_political_power = 15
+			
+			#Three Divisions with high train and equipment
+			if = {
+				limit = {
+					has_completed_focus = VLR_SPR_approach_moscow
+				}
+				division_template = {
+					name = "Milicias de la JSU" 
+					is_locked = yes				
+					priority = 1
+					regiments = {
+						infantry = { x = 0 y = 0 }	
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }	
+					}
+					support = {
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"I. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.4"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"II. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.4"  
+						owner = ROOT 
+					}
+					create_unit = {
+						division = "name = \"III. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.4"  
+						owner = ROOT
+					}
+				}
+			}
+			
+			#Three Divisions with low train and equipment
+			if = {
+				limit = {
+					has_completed_focus = VLR_SPR_support_socialdemocracy
+				}
+				division_template = {
+					name = "Milicias de la JSU" 
+					is_locked = yes				
+					priority = 1
+					regiments = {
+						infantry = { x = 0 y = 0 }	
+						infantry = { x = 0 y = 1 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }	
+					}
+					support = {
+					}
+				}
+				capital_scope = {
+					create_unit = {
+						division = "name = \"I. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.2"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"II. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.2"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"III. Milicias de la JSU\" division_template = \"Milicias de la JSU\" start_experience_factor = 0.2"  
+						owner = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	SPR_integrate_erc_militias = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 50
+		days_remove = 20
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_completed_focus = VLR_SPR_spanish_marxism
+		}
+
+		available = {
+			
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		remove_effect = {
+			add_stability = 0.025
+			add_political_power = 15
+			#Two Divisions with high train and equipment
+			division_template = {
+				name = "Milicias Catalanas" 
+				is_locked = yes				
+				priority = 1
+				regiments = {
+					infantry = { x = 0 y = 0 }	
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+					infantry = { x = 2 y = 0 }
+					infantry = { x = 2 y = 1 }	
+				}
+				support = {
+				}
+			}
+			165 = {
+				create_unit = {
+					division = "name = \"I. Milicias Catalanas\" division_template = \"Milicias Catalanas\" start_experience_factor = 0.4"  
+					owner = ROOT
+				}
+				create_unit = {
+					division = "name = \"II. Milicias Catalanas\" division_template = \"Milicias Catalanas\" start_experience_factor = 0.4"  
+					owner = ROOT
+				}
+			}
+		}
+	}
+	
+	SPR_integrate_maoc_militias = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 50
+		days_remove = 20
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			has_completed_focus = VLR_SPR_approach_moscow
+		}
+
+		available = {
+			
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		remove_effect = {
+			add_stability = 0.025
+			add_political_power = 15
+			#Two Divisions with low train and equipment		
+			division_template = {
+				name = "Milicias del PCE" 
+				is_locked = yes				
+				priority = 1
+				regiments = {
+					infantry = { x = 0 y = 0 }	
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+				}
+				support = {
+				}
+			}
+			165 = {
+				create_unit = {
+					division = "name = \"I. Milicias del PCE\" division_template = \"Milicias del PCE\" start_experience_factor = 0.2"  
+					owner = ROOT
+				}
+				create_unit = {
+					division = "name = \"II. Milicias del PCE\" division_template = \"Milicias del PCE\" start_experience_factor = 0.2"  
+					owner = ROOT
+				}
+			}			
+		}
+	}
+	
+	SPR_integrate_cnt_militias = {
+
+		icon = generic_ignite_civil_war
+		fire_only_once = yes
+		cost = 50
+		days_remove = 20
+
+		allowed = {
+			tag = SPR
+		}
+
+		visible = {
+			OR = {
+				has_completed_focus = VLR_SPR_support_socialdemocracy
+				has_completed_focus = VLR_SPR_spanish_marxism
+			}
+		}
+
+		available = {
+			OR = {
+				has_completed_focus = VLR_SPR_agreements_with_cnt
+				has_completed_focus = VLR_SPR_deal_with_the_anarchists
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		remove_effect = {
+			add_stability = 0.025
+			add_political_power = 15
+			
+			#Two Divisions with low train and equipment
+			if = {
+				limit = {
+					has_completed_focus = VLR_SPR_spanish_marxism
+				}
+				division_template = {
+					name = "Milicias Confederales" 
+					is_locked = yes				
+					priority = 1
+					regiments = {
+						infantry = { x = 0 y = 0 }	
+						infantry = { x = 0 y = 1 }	
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+					}
+					support = {
+					}
+				}
+				165 = {
+					create_unit = {
+						division = "name = \"I. Milicias de la CNT\" division_template = \"Milicias Confederales\" start_experience_factor = 0.2"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"II. Milicias de la CNT\" division_template = \"Milicias Confederales\" start_experience_factor = 0.2"  
+						owner = ROOT
+					}
+				}
+			}
+			
+			#Two Divisions with high train and equipment
+			if = {
+				limit = {
+					has_completed_focus = VLR_SPR_support_socialdemocracy
+				}
+				division_template = {
+					name = "Milicias Confederales" 
+					is_locked = yes				
+					priority = 1
+					regiments = {
+						infantry = { x = 0 y = 0 }	
+						infantry = { x = 0 y = 1 }	
+						infantry = { x = 0 y = 2 }
+						infantry = { x = 1 y = 0 }
+						infantry = { x = 1 y = 1 }
+						infantry = { x = 1 y = 2 }
+					}
+					support = {
+					}
+				}
+				165 = {
+					create_unit = {
+						division = "name = \"I. Milicias de la CNT\" division_template = \"Milicias Confederales\" start_experience_factor = 0.5"  
+						owner = ROOT
+					}
+					create_unit = {
+						division = "name = \"II. Milicias de la CNT\" division_template = \"Milicias Confederales\" start_experience_factor = 0.5"  
+						owner = ROOT
+					}
+				}	
+			}
+		}
+	}
+
+}
