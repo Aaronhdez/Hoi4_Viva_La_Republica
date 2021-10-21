@@ -331,6 +331,26 @@ ideas = {
 				join_faction_tension = -0.25
 			}
 		}
+		
+	# Communism - Common
+	
+		VLR_SPR_land_redistribution = {
+			
+			name = VLR_SPR_soviet_advisors_idea
+
+			picture = SPR_anti_fascist_crusade
+			
+			allowed = {
+				original_tag = SPR
+				NOT = { has_government = democratic }
+				NOT = { has_government = fascism }
+			}
+
+			modifier = {
+				consumer_goods_factor = -0.05
+				production_speed_buildings_factor = 0.1
+			}
+		}	
 	}
 	
 	##############################################################
