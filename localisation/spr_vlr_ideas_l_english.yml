@@ -32,6 +32,10 @@
  # - Communism
  VLR_SPR_three_year_plan: "The Three Year Plan"
  VLR_SPR_three_year_plan_desc: "The Three Year Plan"
+ VLR_SPR_provide_to_the_people: "Provide for the People"
+ VLR_SPR_provide_to_the_people_desc: "Provide for the People"
+ VLR_SPR_mujeres_libres: "Mujeres Libres"
+ VLR_SPR_mujeres_libres_desc: "Mujeres Libres"
  # - Communism - POUM
  VLR_SPR_spanish_marxism_idea: "Spanish Marxism"
  VLR_SPR_anarchists_appeased: "Anarchists Appeased"
