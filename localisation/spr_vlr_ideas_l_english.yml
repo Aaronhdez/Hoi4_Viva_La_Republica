@@ -29,6 +29,9 @@
  VLR_SPR_federalism_1_desc: "Federalism"
  VLR_SPR_integralism_1: "Integralism"
  VLR_SPR_integralism_1_desc: "Integralism"
+ # - Communism
+ VLR_SPR_three_year_plan: "The Three Year Plan"
+ VLR_SPR_three_year_plan_desc: "The Three Year Plan"
  # - Communism - POUM
  VLR_SPR_spanish_marxism_idea: "Spanish Marxism"
  VLR_SPR_anarchists_appeased: "Anarchists Appeased"
