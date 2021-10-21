@@ -392,6 +392,25 @@ ideas = {
 				stability_factor = 0.1
 			}
 		}
+		
+		VLR_SPR_mujeres_libres = {
+
+			picture = FRA_matignon_agreements
+
+			allowed = {
+				original_tag = SPR
+				NOT = { has_government = fascism }
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				conscription_factor = -0.05
+				recruitable_population_factor = -0.025
+			}
+		}
 	}
 	
 	##############################################################
