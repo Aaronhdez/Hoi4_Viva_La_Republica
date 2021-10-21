@@ -996,6 +996,7 @@ focus_tree = {
 			focus = VLR_SPR_colectivize_factories
 		}
 		completion_reward = {
+			add_ideas = VLR_SPR_provide_for_the_people
 		}
 	}
 	
