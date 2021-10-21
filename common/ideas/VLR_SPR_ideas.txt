@@ -336,7 +336,7 @@ ideas = {
 	
 		VLR_SPR_land_redistribution = {
 			
-			name = VLR_SPR_soviet_advisors_idea
+			name = VLR_SPR_land_redistribution
 
 			picture = SPR_anti_fascist_crusade
 			
@@ -351,6 +351,28 @@ ideas = {
 				production_speed_buildings_factor = 0.1
 			}
 		}	
+		
+		VLR_SPR_three_year_plan = {
+			
+			name = VLR_SPR_three_year_plan
+
+			picture = man_five_year_plan_industry
+
+			allowed = {
+				original_tag = SPR
+				NOT = { has_government = fascism }
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				industrial_capacity_factory = 0.05
+				industrial_capacity_dockyard = 0.05
+			}
+		}
 	}
 	
 	##############################################################
