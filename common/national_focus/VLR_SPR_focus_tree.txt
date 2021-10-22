@@ -1181,10 +1181,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				name = land_doc_bonus
+				name = electronics_bonus
 				bonus = 1.0
-				uses = 2
-				category = land_doctrine
+				uses = 1
+				category = electronics
 			}
 		}
 	}
@@ -1204,15 +1204,9 @@ focus_tree = {
 			focus = VLR_SPR_fullfil_the_revolution
 		}
 		completion_reward = {
-			add_stability = 0.05
-			add_political_power = 100
-			add_popularity = { 
-				ideology = democratic
-				popularity = 0.15
-			}
-			add_popularity = { 
-				ideology = communism
-				popularity = -0.05
+			swap_ideas = {
+				remove_idea = VLR_SPR_revolution_fulfilled
+				add_idea = VLR_SPR_revolution_fulfilled_2
 			}
 		}
 	}

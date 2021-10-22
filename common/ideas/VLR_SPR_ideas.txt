@@ -429,10 +429,33 @@ ideas = {
 
 			modifier = {
 				consumer_goods_factor = -0.05
-				stability_factor = 0.1
 				production_speed_buildings_factor = 0.15
 				industrial_capacity_factory = 0.1
 				industrial_capacity_dockyard = 0.1
+			}
+		}
+		
+		VLR_SPR_revolution_fulfilled_2 = {
+
+			name = VLR_SPR_revolution_fulfilled_2
+
+			picture = FRA_matignon_agreements
+
+			allowed = {
+				original_tag = SPR
+				NOT = { has_government = fascism }
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				consumer_goods_factor = -0.05
+				stability_factor = 0.1
+				production_speed_buildings_factor = 0.175
+				industrial_capacity_factory = 0.125
+				industrial_capacity_dockyard = 0.125
 			}
 		}
 		
